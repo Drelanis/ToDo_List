@@ -18,8 +18,8 @@ const renderTasks = (tasksList) => {
   const tasksElems = tasksList
     .sort((first, second) => {
       return second.date - first.date;
-      return first.done - second.done;
     })
+    .sort((first, second) => first.done - second.done)
     .map(({ text, done, id }) => {
       const listItemElem = document.createElement('li');
       const checkbox = document.createElement('input');
@@ -44,7 +44,7 @@ const tasksToDo = (event) => {
   }
   Object.assign(
     tasks.find(({ id }) => id === event.target.getAttribute('data-id')),
-    { done: event.target.checked }
+    { done: event.target.checked, date: getDate() }
   );
   renderTasks(tasks);
 };
