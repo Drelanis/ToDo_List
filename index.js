@@ -1,11 +1,13 @@
 const getRandomId = () => (Math.random() * 10000).toFixed();
 
+const getDate = () => new Date();
+
 const tasks = [
-  { text: 'Buy milk', done: false, id: getRandomId() },
-  { text: 'Pick up Tom from airport', done: false, id: getRandomId() },
-  { text: 'Visit party', done: false, id: getRandomId() },
-  { text: 'Visit doctor', done: true, id: getRandomId() },
-  { text: 'Buy meat', done: true, id: getRandomId() },
+  { text: 'Buy milk', done: false, id: getRandomId(), date: getDate() },
+  { text: 'Pick up Tom', done: false, id: getRandomId(), date: getDate() },
+  { text: 'Visit party', done: false, id: getRandomId(), date: getDate() },
+  { text: 'Visit doctor', done: true, id: getRandomId(), date: getDate() },
+  { text: 'Buy meat', done: true, id: getRandomId(), date: getDate() },
 ];
 
 const LIST_ELEMENT = document.querySelector('.list');
@@ -14,7 +16,10 @@ const INPUT_TASK_ELEMENT = document.querySelector('.task-input');
 const renderTasks = (tasksList) => {
   LIST_ELEMENT.innerHTML = '';
   const tasksElems = tasksList
-    .sort((first, second) => first.done - second.done)
+    .sort((first, second) => {
+      first.date - second.date;
+      return first.done - second.done;
+    })
     .map(({ text, done, id }) => {
       const listItemElem = document.createElement('li');
       const checkbox = document.createElement('input');
@@ -52,6 +57,7 @@ const addNewTasks = () => {
     text: `${INPUT_TASK_ELEMENT.value}`,
     done: false,
     id: getRandomId(),
+    date: getDate(),
   });
   renderTasks(tasks);
 };
