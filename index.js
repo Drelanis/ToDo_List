@@ -13,6 +13,15 @@ const tasks = [
 const LIST_ELEMENT = document.querySelector('.list');
 const INPUT_TASK_ELEMENT = document.querySelector('.task-input');
 
+const createCheckboxElement = (done, id) => {
+  const checkboxElement = document.createElement('input');
+  checkboxElement.classList.add('list__item-checkbox');
+  checkboxElement.setAttribute('type', 'checkbox');
+  checkboxElement.setAttribute('data-id', id);
+  checkboxElement.checked = done;
+  return checkboxElement;
+};
+
 const renderTasks = (tasksList) => {
   LIST_ELEMENT.innerHTML = '';
   const tasksElems = tasksList
@@ -21,16 +30,12 @@ const renderTasks = (tasksList) => {
     )
     .map(({ text, done, id }) => {
       const listItemElem = document.createElement('li');
-      const checkbox = document.createElement('input');
       listItemElem.classList.add('list__item');
-      checkbox.classList.add('list__item-checkbox');
-      checkbox.setAttribute('type', 'checkbox');
-      checkbox.setAttribute('data-id', id);
-      checkbox.checked = done;
       if (done) {
         listItemElem.classList.add('list__item_done');
       }
-      listItemElem.append(checkbox, text);
+      const checkboxElement = createCheckboxElement(done, id);
+      listItemElem.append(checkboxElement, text);
       return listItemElem;
     });
   LIST_ELEMENT.append(...tasksElems);
