@@ -17,7 +17,7 @@ const renderTasks = (tasksList) => {
   LIST_ELEMENT.innerHTML = '';
   const tasksElems = tasksList
     .sort((first, second) => {
-      first.date - second.date;
+      return second.date - first.date;
       return first.done - second.done;
     })
     .map(({ text, done, id }) => {
