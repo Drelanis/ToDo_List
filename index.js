@@ -16,10 +16,9 @@ const INPUT_TASK_ELEMENT = document.querySelector('.task-input');
 const renderTasks = (tasksList) => {
   LIST_ELEMENT.innerHTML = '';
   const tasksElems = tasksList
-    .sort((first, second) => {
-      return second.date - first.date;
-    })
-    .sort((first, second) => first.done - second.done)
+    .sort(
+      (first, second) => first.done - second.done || second.date - first.date
+    )
     .map(({ text, done, id }) => {
       const listItemElem = document.createElement('li');
       const checkbox = document.createElement('input');
