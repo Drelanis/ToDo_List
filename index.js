@@ -1,3 +1,7 @@
+const LIST_ELEMENT = document.querySelector('.list');
+const INPUT_TASK_ELEMENT = document.querySelector('.task-input');
+const BUTTON_ELEMENT = document.querySelector('.create-task-btn');
+
 const getRandomId = () => (Math.random() * 10000).toFixed();
 
 const getDate = () => new Date();
@@ -10,10 +14,7 @@ const tasks = [
   { text: 'Buy meat', done: true, id: getRandomId(), date: getDate() },
 ];
 
-const LIST_ELEMENT = document.querySelector('.list');
-const INPUT_TASK_ELEMENT = document.querySelector('.task-input');
-
-const createCheckboxElement = (done, id) => {
+export const createCheckboxElement = (done, id) => {
   const checkboxElement = document.createElement('input');
   checkboxElement.classList.add('list__item-checkbox');
   checkboxElement.setAttribute('type', 'checkbox');
@@ -22,7 +23,7 @@ const createCheckboxElement = (done, id) => {
   return checkboxElement;
 };
 
-const renderTasks = (tasksList) => {
+export const renderTasks = (tasksList) => {
   LIST_ELEMENT.innerHTML = '';
   const tasksElems = tasksList
     .sort(
@@ -42,7 +43,7 @@ const renderTasks = (tasksList) => {
 };
 renderTasks(tasks);
 
-const tasksToDo = (event) => {
+export const tasksToDo = (event) => {
   if (event.target.getAttribute('type') !== 'checkbox') {
     return;
   }
@@ -53,7 +54,7 @@ const tasksToDo = (event) => {
   renderTasks(tasks);
 };
 
-const addNewTasks = () => {
+export const addNewTasks = () => {
   if (INPUT_TASK_ELEMENT.value === '') {
     return;
   }
@@ -67,6 +68,4 @@ const addNewTasks = () => {
 };
 
 LIST_ELEMENT.addEventListener('click', tasksToDo);
-document
-  .querySelector('.create-task-btn')
-  .addEventListener('click', addNewTasks);
+BUTTON_ELEMENT.addEventListener('click', addNewTasks);
