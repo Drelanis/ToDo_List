@@ -1,71 +1,77 @@
-const LIST_ELEMENT = document.querySelector('.list');
-const INPUT_TASK_ELEMENT = document.querySelector('.task-input');
-const BUTTON_ELEMENT = document.querySelector('.create-task-btn');
+// const listElement = document.querySelector('.list');
+// // const inputTaskElement = document.querySelector('.task-input');
+// const buttonElement = document.querySelector('.create-task-btn');
 
-const getRandomId = () => (Math.random() * 10000).toFixed();
+// const storage = {};
 
-const getDate = () => new Date();
+// export const setItem = (key, value) => {
+//   Object.assign(storage, { [key]: value });
+// };
 
-const tasks = [
-  { text: 'Buy milk', done: false, id: getRandomId(), date: getDate() },
-  { text: 'Pick up Tom', done: false, id: getRandomId(), date: getDate() },
-  { text: 'Visit party', done: false, id: getRandomId(), date: getDate() },
-  { text: 'Visit doctor', done: true, id: getRandomId(), date: getDate() },
-  { text: 'Buy meat', done: true, id: getRandomId(), date: getDate() },
-];
+// export const getItem = key => storage[key];
 
-export const createCheckboxElement = (done, id) => {
-  const checkboxElement = document.createElement('input');
-  checkboxElement.classList.add('list__item-checkbox');
-  checkboxElement.setAttribute('type', 'checkbox');
-  checkboxElement.setAttribute('data-id', id);
-  checkboxElement.checked = done;
-  return checkboxElement;
-};
+// const getRandomId = () => (Math.random() * 10000).toFixed();
 
-export const renderTasks = (tasksList) => {
-  LIST_ELEMENT.innerHTML = '';
-  const tasksElems = tasksList
-    .sort(
-      (first, second) => first.done - second.done || second.date - first.date
-    )
-    .map(({ text, done, id }) => {
-      const listItemElem = document.createElement('li');
-      listItemElem.classList.add('list__item');
-      if (done) {
-        listItemElem.classList.add('list__item_done');
-      }
-      const checkboxElement = createCheckboxElement(done, id);
-      listItemElem.append(checkboxElement, text);
-      return listItemElem;
-    });
-  LIST_ELEMENT.append(...tasksElems);
-};
-renderTasks(tasks);
+// const getDate = () => new Date();
 
-export const tasksToDo = (event) => {
-  if (event.target.getAttribute('type') !== 'checkbox') {
-    return;
-  }
-  Object.assign(
-    tasks.find(({ id }) => id === event.target.getAttribute('data-id')),
-    { done: event.target.checked, date: getDate() }
-  );
-  renderTasks(tasks);
-};
+// export const createCheckboxElement = (done, id) => {
+//   const checkboxElement = document.createElement('input');
+//   checkboxElement.classList.add('list__item-checkbox');
+//   checkboxElement.setAttribute('type', 'checkbox');
+//   checkboxElement.setAttribute('data-id', id);
+//   checkboxElement.checked = done;
+//   return checkboxElement;
+// };
 
-export const addNewTasks = () => {
-  if (INPUT_TASK_ELEMENT.value === '') {
-    return;
-  }
-  tasks.push({
-    text: `${INPUT_TASK_ELEMENT.value}`,
-    done: false,
-    id: getRandomId(),
-    date: getDate(),
-  });
-  renderTasks(tasks);
-};
+// export const renderTasks = () => {
+//   const listElement = document.querySelector('.list');
+//   listElement.innerHTML = '';
+//   const tasksElems = (getItem('tasksList') || [])
+//     .sort((first, second) => first.done - second.done || second.date - first.date)
+//     .map(({ text, done, id }) => {
+//       const listItemElem = document.createElement('li');
+//       listItemElem.classList.add('list__item');
+//       if (done) {
+//         listItemElem.classList.add('list__item_done');
+//       }
+//       const checkboxElement = createCheckboxElement(done, id);
+//       listItemElem.append(checkboxElement, text);
+//       return listItemElem;
+//     });
+//   listElement.append(...tasksElems);
+// };
 
-LIST_ELEMENT.addEventListener('click', tasksToDo);
-BUTTON_ELEMENT.addEventListener('click', addNewTasks);
+// export const tasksToDo = event => {
+//   if (event.target.getAttribute('type') !== 'checkbox') {
+//     return;
+//   }
+//   Object.assign(
+//     (getItem('tasksList') || []).find(({ id }) => id === event.target.getAttribute('data-id')),
+//     { done: event.target.checked, date: getDate() },
+//   );
+//   renderTasks();
+// };
+
+// export const addNewTasks = () => {
+//   const inputTaskElement = document.querySelector('.task-input');
+//   const text = inputTaskElement.value;
+//   if (text === '') {
+//     return;
+//   }
+//   const tasksList = getItem('tasksList') || [];
+
+//   const newTasksList = tasksList.concat({
+//     text,
+//     done: false,
+//     createDate: getDate(),
+//     id: getRandomId(),
+//   });
+
+//   setItem('tasksList', newTasksList);
+//   inputTaskElement.value = '';
+
+//   renderTasks();
+// };
+
+// listElement.addEventListener('click', tasksToDo);
+// buttonElement.addEventListener('click', addNewTasks);
